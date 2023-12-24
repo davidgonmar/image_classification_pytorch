@@ -34,6 +34,9 @@ def save_model(model: nn.Module, path: Union[str, Path]) -> None:
         path: The path to save the state dict to
     """
     path = Path(SAVED_PATH) / path
+    if not path.parent.exists():
+        path.parent.mkdir(parents=True)
+
     torch.save(model.state_dict(), path)
 
 
