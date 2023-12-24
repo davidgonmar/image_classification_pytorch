@@ -51,6 +51,27 @@ class AlexNet(nn.Module):
             nn.Linear(4096, num_classes),
         )
 
+        self._initialize_weights()
+
+    def _initialize_weights(self):
+        """
+        Initializes the weights of the model.
+        As described in the paper, the weights are initialized from a Gaussian distribution with mean 0 and standard deviation 0.01.
+        The biases in the 2nd, 4th, and 5th convolutional layers as well as in the fully-connected layers are initialized with the constant 1.
+        The biases in the remaining layers are initialized with the constant 0.
+        """
+        for idx, module in enumerate(self.modules()):
+            if isinstance(module, nn.Conv2d):
+                if idx in [1, 4, 6, 7, 8]:
+                    nn.init.normal_(module.weight, mean=0, std=0.01)
+                    nn.init.constant_(module.bias, 1)
+                else:
+                    nn.init.normal_(module.weight, mean=0, std=0.01)
+                    nn.init.constant_(module.bias, 0)
+            elif isinstance(module, nn.Linear):
+                nn.init.normal_(module.weight, mean=0, std=0.01)
+                nn.init.constant_(module.bias, 1)
+
     def forward(self, x: Tensor) -> Tensor:
         x = self.features(x)
         # Flattens the tensor from N x 256 x 6 x 6 to N x 9216

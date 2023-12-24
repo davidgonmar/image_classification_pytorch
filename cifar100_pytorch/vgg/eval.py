@@ -2,7 +2,8 @@ import torch
 import argparse
 from util import load_model
 
-from cifar100_pytorch.common import get_cifar100_dataloader, DEVICE
+from cifar100_pytorch.common.util import get_cifar100_dataloader
+from cifar100_pytorch.common.config import DEVICE
 from cifar100_pytorch.vgg.util import config_to_net, get_transform
 
 

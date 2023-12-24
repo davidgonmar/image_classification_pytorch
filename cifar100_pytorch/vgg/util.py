@@ -8,7 +8,8 @@ from cifar100_pytorch.vgg.models import (
 )
 from typing import Union, Literal
 from torchvision import transforms
-from cifar100_pytorch.common import get_mean_std, DATA_PATH
+from cifar100_pytorch.common.cifar_100_stats import get_mean_std
+from cifar100_pytorch.common.config import DATA_PATH
 from torchvision import datasets
 from torch.utils.data import DataLoader
 

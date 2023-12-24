@@ -7,7 +7,7 @@ from torchvision.datasets import CIFAR100
 from torch.utils.data import DataLoader
 from torchvision import transforms
 
-from cifar100_pytorch.common import DATA_PATH, SAVED_PATH
+from cifar100_pytorch.common.config import DATA_PATH, SAVED_PATH
 
 
 def load_model(model: nn.Module, path: Union[str, Path]) -> nn.Module:
