@@ -1,18 +1,17 @@
 import torch
 
-from common.util import get_mnist_dataloader
+from lenet.util import get_transformed_dataloader
 from common.config import DEVICE
 from lenet.model import LeNet5
-from torchvision import transforms
 from common.util import load_model
 import argparse
 
 
 def main(args):
-    data_loader = get_mnist_dataloader(
-        batch_size=128,
+    data_loader = get_transformed_dataloader(
         train=False,
-        transforms=transforms.ToTensor(),
+        batch_size=32,
+        shuffle=False,
     )
     # Load the model according to the configuration and weights path
     net = load_model(LeNet5(), args.model_path).to(DEVICE)

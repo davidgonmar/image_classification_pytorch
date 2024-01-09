@@ -1,10 +1,9 @@
 import torch
-from common.util import get_mnist_dataloader
+from lenet.util import get_transformed_dataloader
 from tqdm import tqdm
 from lenet.model import LeNet5
 from common.util import save_model
 import json
-from torchvision import transforms
 
 BATCH_SIZE = 32
 LEARNING_RATE = 0.01
@@ -23,18 +22,16 @@ def main():
     criterion = torch.nn.CrossEntropyLoss()
     optimizer = torch.optim.SGD(net.parameters(), lr=LEARNING_RATE)
 
-    train_dloader = get_mnist_dataloader(
+    train_dloader = get_transformed_dataloader(
         train=True,
         batch_size=BATCH_SIZE,
         shuffle=True,
-        transforms=transforms.ToTensor(),
     )
 
-    valid_dloader = get_mnist_dataloader(
+    valid_dloader = get_transformed_dataloader(
         train=False,
         batch_size=BATCH_SIZE,
         shuffle=False,
-        transforms=transforms.ToTensor(),
     )
 
     for epoch in range(EPOCHS):
