@@ -1,8 +1,8 @@
 import torch
-from cifar100_pytorch.vgg.util import get_transformed_dataloader
+from vgg.util import get_transformed_dataloader
 from tqdm import tqdm
-from cifar100_pytorch.alexnet.model import AlexNet
-from cifar100_pytorch.common.util import save_model
+from alexnet.model import AlexNet
+from common.util import save_model
 import json
 
 

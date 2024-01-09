@@ -1,8 +1,8 @@
 import torch
-from cifar100_pytorch.common.util import get_mnist_dataloader
+from common.util import get_mnist_dataloader
 from tqdm import tqdm
-from cifar100_pytorch.lenet.model import LeNet5
-from cifar100_pytorch.common.util import save_model
+from lenet.model import LeNet5
+from common.util import save_model
 import json
 from torchvision import transforms
 

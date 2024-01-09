@@ -1,10 +1,10 @@
 import torch
 
-from cifar100_pytorch.common.util import get_mnist_dataloader
-from cifar100_pytorch.common.config import DEVICE
-from cifar100_pytorch.lenet.model import LeNet5
+from common.util import get_mnist_dataloader
+from common.config import DEVICE
+from lenet.model import LeNet5
 from torchvision import transforms
-from cifar100_pytorch.common.util import load_model
+from common.util import load_model
 import argparse
 
 

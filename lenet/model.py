@@ -8,7 +8,7 @@ class LeNet5(nn.Module):
     def __init__(self):
         super(LeNet5, self).__init__()
         self.conv1 = nn.Conv2d(
-            in_channels=1, out_channels=6, kernel_size=5, padding=2, stride=1
+            in_channels=1, out_channels=6, kernel_size=5, padding=0, stride=1
         )
         self.avgpool1 = nn.AvgPool2d(kernel_size=2, padding=0, stride=2)
         self.conv2 = nn.Conv2d(

@@ -1,10 +1,10 @@
 import json
-from cifar100_pytorch.common.util import save_model
+from common.util import save_model
 import torch
-from cifar100_pytorch.vgg.util import get_transformed_dataloader
+from vgg.util import get_transformed_dataloader
 from tqdm import tqdm
 import argparse
-from cifar100_pytorch.vgg.util import config_to_net
+from vgg.util import config_to_net
 
 
 BATCH_SIZE = 128
