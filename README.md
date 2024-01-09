@@ -1,4 +1,4 @@
-# CIFAR100 PyTorch
+# Image classification, PyTorch
 
-Implementation of various popular papers on PyTorch, aimed at training from scratch on the CIFAR100 dataset.
+Implementation of various popular architectures for image classification on PyTorch.
 

@@ -3,7 +3,7 @@ from torch import nn
 from pathlib import Path
 from typing import Union
 
-from torchvision.datasets import CIFAR100
+from torchvision.datasets import CIFAR100, MNIST
 from torch.utils.data import DataLoader
 from torchvision import transforms
 
@@ -60,5 +60,29 @@ def get_cifar100_dataloader(
     """
 
     dataset = CIFAR100(DATA_PATH, train=train, download=True, transform=transforms)
+
+    return DataLoader(dataset, batch_size=batch_size, shuffle=shuffle)
+
+
+def get_mnist_dataloader(
+    *,
+    batch_size,
+    train: bool,
+    transforms: transforms.Compose = None,
+    shuffle: bool = True
+) -> DataLoader:
+    """
+    Returns a dataloader for the MNIST dataset
+
+    Args:
+        batch_size: The batch size to use
+        train: Whether to use the training or testing dataset
+        transforms: The transforms to apply to the dataset
+
+    Returns:
+        The dataloader
+    """
+
+    dataset = MNIST(DATA_PATH, train=train, download=True, transform=transforms)
 
     return DataLoader(dataset, batch_size=batch_size, shuffle=shuffle)
