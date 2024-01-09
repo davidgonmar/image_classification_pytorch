@@ -4,6 +4,7 @@ from lenet.util import get_transformed_dataloader
 from common.config import DEVICE
 from lenet.model import LeNet5
 from common.util import load_model
+from common.util import TestResults, save_test_results
 import argparse
 
 
@@ -51,10 +52,16 @@ def main(args):
         "total_classes": len(data_loader.dataset.classes),
     }
 
-    import json
+    results = TestResults(
+        model_name=net.__class__.__name__,
+        top_1_accuracy=100 * correct / total,
+        top_5_accuracy=100 * correct_top5 / total,
+        top_10_accuracy=100 * correct_top10 / total,
+        n_classes=len(data_loader.dataset.classes),
+        dataset_name="CIFAR100",
+    )
 
-    with open("results_{}.json".format(net.__class__.__name__), "w") as f:
-        json.dump(results, f)
+    save_test_results(results, "test_results_{}.json".format(net.__class__.__name__))
 
 
 if __name__ == "__main__":

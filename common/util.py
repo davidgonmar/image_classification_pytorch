@@ -9,6 +9,9 @@ from torchvision import transforms
 
 from common.config import DATA_PATH, SAVED_PATH
 
+from dataclasses import dataclass
+import json
+
 
 def load_model(model: nn.Module, path: Union[str, Path]) -> nn.Module:
     """
@@ -45,7 +48,7 @@ def get_cifar100_dataloader(
     batch_size,
     train: bool,
     transforms: transforms.Compose = None,
-    shuffle: bool = True
+    shuffle: bool = True,
 ) -> DataLoader:
     """
     Returns a dataloader for the CIFAR100 dataset
@@ -69,7 +72,7 @@ def get_mnist_dataloader(
     batch_size,
     train: bool,
     transforms: transforms.Compose = None,
-    shuffle: bool = True
+    shuffle: bool = True,
 ) -> DataLoader:
     """
     Returns a dataloader for the MNIST dataset
@@ -86,3 +89,39 @@ def get_mnist_dataloader(
     dataset = MNIST(DATA_PATH, train=train, download=True, transform=transforms)
 
     return DataLoader(dataset, batch_size=batch_size, shuffle=shuffle)
+
+
+@dataclass
+class TestResults:
+    """
+    Represents the results of a model test results
+    """
+
+    model_name: str
+
+    top_1_accuracy: float
+
+    top_5_accuracy: float
+
+    top_10_accuracy: float
+
+    n_classes: int
+
+    dataset_name: str
+
+
+def save_test_results(results: TestResults, path: Union[str, Path] = None) -> None:
+    """
+    Saves the results of a model test run to the '/saved' directory + the given path
+
+    Args:
+        results: The results to save
+        path: The path to save the results to
+    """
+    path = Path(SAVED_PATH) / path
+    if not path.parent.exists():
+        path.parent.mkdir(parents=True)
+
+    with open(path, "w") as f:
+        json.dump(results.__dict__, f)
+        print("Saved test results to {}".format(path))

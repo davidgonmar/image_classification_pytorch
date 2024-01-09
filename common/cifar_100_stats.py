@@ -6,7 +6,7 @@ from torch import Tensor
 
 import json
 
-from cifar100_pytorch.common.config import DATA_PATH
+from common.config import DATA_PATH
 import os
 
 
