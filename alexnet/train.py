@@ -1,10 +1,8 @@
 import torch
 from vgg.util import get_transformed_dataloader
-from tqdm import tqdm
 from alexnet.model import AlexNet
 from common.util import save_model
-import json
-
+from tqdm import tqdm
 
 BATCH_SIZE = 128
 MOMENTUM = 0.9
@@ -18,12 +16,17 @@ def main():
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-    print("Training model AlexNet  on device {}".format(device))
+    print("Training model AlexNet on device {}".format(device))
 
     net = AlexNet(num_classes=100).to(device)
 
     criterion = torch.nn.CrossEntropyLoss()
-    optimizer = torch.optim.SGD(net.parameters(), lr=0.01, momentum=0.9)
+    optimizer = torch.optim.SGD(
+        net.parameters(),
+        lr=INITIAL_LEARNING_RATE,
+        momentum=MOMENTUM,
+        weight_decay=WEIGHT_DECAY,
+    )
 
     train_dloader = get_transformed_dataloader(
         train=True, batch_size=BATCH_SIZE, shuffle=True
@@ -82,11 +85,12 @@ def main():
                 labels = labels.to(device)
 
                 outputs = net(inputs)
+
                 loss = criterion(outputs, labels)
 
                 valid_loss += loss.item()
 
-                _, predicted = torch.max(outputs.data, 1)
+                _, predicted = torch.max(outputs, 1)
                 valid_correct += (predicted == labels).sum().item()
 
         valid_loss /= len(valid_dloader)
@@ -100,19 +104,6 @@ def main():
                 epoch + 1, train_loss, valid_loss, valid_accuracy
             )
         )
-
-        save_model(net, net.__class__.__name__ + ".pth")
-
-        # append state in json file
-        with open("results.json", "w") as f:
-            _dict = {
-                "train_loss": train_loss,
-                "valid_loss": valid_loss,
-                "model_name": net.__class__.__name__,
-                "total_classes": len(train_dloader.dataset.classes),
-                "epoch": epoch,
-            }
-            json.dump(_dict, f)
 
     save_model(net, net.__class__.__name__ + ".pth")
 

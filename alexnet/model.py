@@ -61,16 +61,9 @@ class AlexNet(nn.Module):
         The biases in the remaining layers are initialized with the constant 0.
         """
         for idx, module in enumerate(self.modules()):
-            if isinstance(module, nn.Conv2d):
-                if idx in [1, 4, 6, 7, 8]:
-                    nn.init.normal_(module.weight, mean=0, std=0.01)
-                    nn.init.constant_(module.bias, 1)
-                else:
-                    nn.init.normal_(module.weight, mean=0, std=0.01)
-                    nn.init.constant_(module.bias, 0)
-            elif isinstance(module, nn.Linear):
+            if isinstance(module, nn.Conv2d) or isinstance(module, nn.Linear):
                 nn.init.normal_(module.weight, mean=0, std=0.01)
-                nn.init.constant_(module.bias, 1)
+                nn.init.constant_(module.bias, 0)
 
     def forward(self, x: Tensor) -> Tensor:
         x = self.features(x)
