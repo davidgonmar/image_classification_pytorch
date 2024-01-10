@@ -56,9 +56,12 @@ class AlexNet(nn.Module):
     def _initialize_weights(self):
         """
         Initializes the weights of the model.
-        As described in the paper, the weights are initialized from a Gaussian distribution with mean 0 and standard deviation 0.01.
-        The biases in the 2nd, 4th, and 5th convolutional layers as well as in the fully-connected layers are initialized with the constant 1.
-        The biases in the remaining layers are initialized with the constant 0.
+
+        Weights -> As described in the paper, the weights are initialized from a Gaussian distribution with mean 0 and standard deviation 0.01.
+
+        Biases -> According to the paper, the biases in the 2nd, 4th, and 5th convolutional layers as well as in the
+        fully-connected layers are initialized with the constant 1, whereas the other biases are initialized with 0.
+        However, I found that initializing all biases with the constant 0 works better.
         """
         for idx, module in enumerate(self.modules()):
             if isinstance(module, nn.Conv2d) or isinstance(module, nn.Linear):
