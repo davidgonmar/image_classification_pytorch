@@ -1,4 +1,4 @@
-from .models import ResNet18, ResNet34, ResNet50
+from .models import ResNet18, ResNet34, ResNet50, ResNet101, ResNet152
 import torch
 
 if __name__ == "__main__":
@@ -19,6 +19,22 @@ if __name__ == "__main__":
     print(test_output)
 
     model = ResNet50()
+
+    test_input = torch.randn(1, 3, 224, 224)
+
+    test_output = model(test_input)
+
+    print(test_output)
+
+    model = ResNet101()
+
+    test_input = torch.randn(1, 3, 224, 224)
+
+    test_output = model(test_input)
+
+    print(test_output)
+
+    model = ResNet152()
 
     test_input = torch.randn(1, 3, 224, 224)
 

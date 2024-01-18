@@ -278,3 +278,75 @@ class ResNet50(ResNet):
             n_blocks=3,
             type="bottleneck",
         )
+
+
+class ResNet101(ResNet):
+    def __init__(self, in_channels=3, num_classes=10):
+        super(
+            ResNet101,
+            self,
+        ).__init__(2048, in_channels, num_classes)
+        self.conv2_x = self._make_layer(
+            in_channels=64,
+            mid_channels=64,
+            out_channels=256,
+            n_blocks=3,
+            type="bottleneck",
+        )
+        self.conv3_x = self._make_layer(
+            in_channels=256,
+            mid_channels=128,
+            out_channels=512,
+            n_blocks=4,
+            type="bottleneck",
+        )
+        self.conv4_x = self._make_layer(
+            in_channels=512,
+            mid_channels=256,
+            out_channels=1024,
+            n_blocks=23,
+            type="bottleneck",
+        )
+        self.conv5_x = self._make_layer(
+            in_channels=1024,
+            mid_channels=512,
+            out_channels=2048,
+            n_blocks=3,
+            type="bottleneck",
+        )
+
+
+class ResNet152(ResNet):
+    def __init__(self, in_channels=3, num_classes=10):
+        super(
+            ResNet152,
+            self,
+        ).__init__(2048, in_channels, num_classes)
+        self.conv2_x = self._make_layer(
+            in_channels=64,
+            mid_channels=64,
+            out_channels=256,
+            n_blocks=3,
+            type="bottleneck",
+        )
+        self.conv3_x = self._make_layer(
+            in_channels=256,
+            mid_channels=128,
+            out_channels=512,
+            n_blocks=8,
+            type="bottleneck",
+        )
+        self.conv4_x = self._make_layer(
+            in_channels=512,
+            mid_channels=256,
+            out_channels=1024,
+            n_blocks=36,
+            type="bottleneck",
+        )
+        self.conv5_x = self._make_layer(
+            in_channels=1024,
+            mid_channels=512,
+            out_channels=2048,
+            n_blocks=3,
+            type="bottleneck",
+        )
